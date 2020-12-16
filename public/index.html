@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css">
 
-<link rel="stylesheet"
-	href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 <link rel="stylesheet" href="stylesheets/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!--[if lte IE 8]>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-old-ie-min.css">
-<![endif]-->
-<!--[if gt IE 8]><!-->
 <link rel="stylesheet"
-	href="http://yui.yahooapis.com/pure/0.6.0/grids-responsive-min.css">
-<!--<![endif]-->
+	href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
 
 <script src="/socket.io/socket.io.js"></script>
 <script
@@ -67,31 +61,31 @@
 											+ config.ircddbHostname
 											+ "</td></tr>");
 						}
-						if (config.ircddbEnabled2) {
+						if (config.ircddbEnabled2 === "1") {
 							$("#status tbody").append(
 									"<tr><th>ircDDB Host 2</th><td>"
 											+ config.ircddbHostname2
 											+ "</td></tr>");
 						}
-						if (config.ircddbEnabled3) {
+						if (config.ircddbEnabled3 === "1") {
 							$("#status tbody").append(
 									"<tr><th>ircDDB Host 3</th><td>"
 											+ config.ircddbHostname3
 											+ "</td></tr>");
 						}
-						if (config.ircddbEnabled4) {
+						if (config.ircddbEnabled4 === "1") {
 							$("#status tbody").append(
 									"<tr><th>ircDDB Host 4</th><td>"
 											+ config.ircddbHostname4
 											+ "</td></tr>");
 						}
-						if (config.aprsEnabled) {
+						if (config.aprsEnabled === "1") {
 							$("#status tbody").append(
 									"<tr><th>APRS Host</th><td>"
-											+ config.aprsHostname
+											+ config.aprsAddress
 											+ "</td></tr>");
 						}
-						if (config.ccsEnabled) {
+						if (config.ccsEnabled === "1") {
 							$("#status tbody").append(
 									"<tr><th>CCS Host</th><td>"
 											+ config.ccsHost + "</td></tr>");
@@ -129,10 +123,11 @@
 
 						$('#rptrs tbody').remove();
 						$('#rptrs').append('<tbody></tbody>');
-						if (!(typeof config.repeaterBand1 === "undefined1")) {
+						const validBands = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+						if (!(typeof config.repeaterBand1 === "undefined")) {
 							var rptrCall1 = checkRptCall(
 									config.gatewayCallsign,
-									config.RepeaterCall1);
+									config.repeaterCall1);
 							var rptrStr1 = "<tr><td><a href='"
 									+ gmap(config.latitude1, config.longitude)
 									+ "' target='map'>" + rptrCall1
@@ -146,10 +141,10 @@
 							$('#rptrs tbody').append(rptrStr1);
 						}
 
-						if (!(typeof config.repeaterBand2 === "undefined")) {
+						if (validBands.includes(config.repeaterBand2)) {
 							var rptrCall2 = checkRptCall(
 									config.gatewayCallsign,
-									config.RepeaterCall2);
+									config.repeaterCall2);
 							var rptrStr2 = "<tr><td><a href='"
 									+ gmap(config.latitude2, config.longitude2)
 									+ "' target='map'>" + rptrCall2
@@ -163,10 +158,10 @@
 							$('#rptrs tbody').append(rptrStr2);
 						}
 
-						if (!(typeof config.repeaterBand3 === "undefined")) {
+						if (validBands.includes(config.repeaterBand3)) {
 							var rptrCall3 = checkRptCall(
 									config.gatewayCallsign,
-									config.RepeaterCall3);
+									config.repeaterCall3);
 							var rptrStr3 = "<tr><td><a href='"
 									+ gmap(config.latitude3, config.longitude3)
 									+ "' target='map'>" + rptrCall3
@@ -180,10 +175,10 @@
 							$('#rptrs tbody').append(rptrStr3);
 						}
 
-						if (!(typeof config.repeaterBand4 === "undefined")) {
+						if (validBands.includes(config.repeaterBand4)) {
 							var rptrCall4 = checkRptCall(
 									config.gatewayCallsign,
-									config.RepeaterCall4);
+									config.repeaterCall4);
 							var rptrStr4 = "<tr><td><a href='"
 									+ gmap(config.latitude4, config.longitude4)
 									+ "' target='map'>" + rptrCall4

@@ -15,13 +15,13 @@ var statseconds = 10 * 1000; // Set number of seconds between updating CPU
 								// stats times 1000;
 
 // Modify paths, if different -- these should work for Compass Linux
-var LinkLOG = '/var/log/opendv/Links.log';
-var ircGW = '/etc/opendv/ircddbgateway';
-var headers = '/var/log/opendv/Headers.log';
-var starNetLog = '/var/log/opendv/STARnet.log';
+var LinkLOG = '/var/log/Links.log';
+var ircGW = '/etc/ircddbgateway';
+var headers = '/var/log/Headers.log';
+var starNetLog = '/var/log/STARnet.log';
 
 app.use(express.static(__dirname + '/public'));
-var port = process.env.PORT || '80';
+var port = process.env.PORT || '8082';
 app.set('port', port);
 app.set('host', ''); // Set to '::' to include IPv6 or set to specific
 						// address if not wanted on all interfaces
@@ -40,8 +40,8 @@ remove.forEach(function(token) {
 
 var server = http.createServer(app).listen(app.get('port'), app.get('host'),
 		function() {
-			process.setgid('opendv');
-			process.setuid('opendv');
+//			process.setgid('opendv');
+//			process.setuid('opendv');
 			touch.sync(LinkLOG, '');
 			touch.sync(headers, '');
 			touch.sync(starNetLog, '');
