@@ -148,9 +148,12 @@ function parseLinks(line) {
 }
 
 fs.readFileSync(LinkLOG).toString().split('\n').forEach(function(line) {
+	var LinkPatt = /\d\d\d\d-\d+-\d+ */;
 	if (line.trim().length > 0) {
 		var linkline = parseLinks(line);
-		links.push(linkline);
+		if (LinkPatt.test(linkline.datestamp)) {
+			links.push(linkline);
+		}
 	}
 });
 
