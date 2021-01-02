@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="stylesheets/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -215,7 +217,7 @@
 								if (dmem.length > 0)
 									dentry += "<div>Permanent Members: " + dmem
 											+ "</div>\n";
-								dentry += '<table id="' + sncall + '" class="pure-table pure-table-bordered">';
+								dentry += '<table id="' + sncall + '" class="pure-table pure-table-striped">';
 								dentry += '<thead><tr><th>Callsign</th><th>Local Join Time</th></tr></thead>';
 								dentry += '<tbody/></table></div>';
 								$('#starnetgroups').append(dentry);
@@ -306,11 +308,12 @@
 </script>
 </head>
 <body style="padding: 1 em;">
+	<img src="logo.png" class=".pure-img" />
 	<h1 id="gatewayCALL"></h1>
 	<div class="pure-g">
 		<div class="pure-u-1">
 			<h3>Links</h3>
-			<table id="links" class="pure-table pure-table-bordered">
+			<table id="links" class="pure-table pure-table-striped">
 				<thead>
 					<tr>
 						<th>Local Time</th>
@@ -331,7 +334,7 @@
 		</div>
 		<div class="pure-u-1">
 			<h3>RF Activity</h3>
-			<table id="repeater" class="pure-table pure-table-bordered">
+			<table id="repeater" class="pure-table pure-table-striped">
 				<thead>
 					<tr>
 						<th>Local Time</th>
@@ -348,7 +351,7 @@
 		</div>
 		<div class="pure-u-1">
 			<h3>Network Activity</h3>
-			<table id="network" class="pure-table pure-table-bordered">
+			<table id="network" class="pure-table pure-table-striped">
 				<thead>
 					<tr>
 						<th>Local Time</th>
@@ -365,7 +368,7 @@
 		</div>
 		<div class="pure-u-1">
 			<h3>Repeater Modules</h3>
-			<table id="rptrs" class="pure-table pure-table-bordered">
+			<table id="rptrs" class="pure-table pure-table-striped">
 				<thead>
 					<tr>
 						<th>Callsign</th>
@@ -383,13 +386,13 @@
 		<div class="pure-u-1" id="starnetgroups"></div>
 		<div class="pure-u-1">
 			<h3>Reporting Servers</h3>
-			<table id="status" class="pure-table pure-table-bordered">
+			<table id="status" class="pure-table pure-table-striped">
 				<tbody></tbody>
 			</table>
 		</div>
 		<div class="pure-u-1">
 			<h3>CPU Status</h3>
-			<table id="stats" class="pure-table pure-table-bordered">
+			<table id="stats" class="pure-table pure-table-striped">
 				<tbody></tbody>
 			</table>
 		</div>
