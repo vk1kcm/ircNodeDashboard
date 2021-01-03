@@ -271,11 +271,11 @@ io
 					});
 					rptlog.on('line', function(line) {
 						var lineobj = parseLogLine(line);
-						if (lineobj.source === 'Repeater') {
+//						if (lineobj.source === 'Repeater') {
 							addRF(lineobj);
-						} else {
-							addNet(lineobj);
-						}
+//						} else {
+//							addNet(lineobj);
+//						}
 						socket.emit('header', lineobj);
 					});
 

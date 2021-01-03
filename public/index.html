@@ -283,25 +283,24 @@
 
 	socket.on('header', function(data) {
 		console.log("Incoming header: \n" + JSON.stringify(data) + "\n\n");
+		if (data.source === "Repeater") {
+			var actloc = "RF";
+		} else {
+			var actloc = "Network";
+		}
 
 		var mydate = new Date(data.date + "T" + data.time);
 		var ldate = myDate(data.date, data.time);
 		var newrec = "<tr><td>" + ldate + "</td><td>" + data.source
 				+ "</td><td>" + data.mycall + "/" + data.comment1 + "</td><td>"
 				+ data.urcall + "</td><td>" + data.rpt1 + "</td><td>"
-				+ data.rpt2 + "</td></tr>";
+				+ data.rpt2 + "</td><td>"
+				+ actloc + "</td></tr>";
 
-		if (data.source === "Repeater") {
-			if (++rr > 10) {
-				$("#repeater tbody tr:first").remove();
-			}
-			$("#repeater tbody").append(newrec);
-		} else {
-			if (++lr > 10) {
-				$("#network tbody tr:first").remove();
-			}
-			$("#network tbody").append(newrec);
+		if (++rr > 15) {
+			$("#repeater tbody tr:first").remove();
 		}
+		$("#repeater tbody").append(newrec);
 
 		//    socket.emit('my other event', { my: data });
 	});
@@ -333,7 +332,7 @@
 			</div>
 		</div>
 		<div class="pure-u-1">
-			<h3>RF Activity</h3>
+			<h3>Activity</h3>
 			<table id="repeater" class="pure-table pure-table-striped">
 				<thead>
 					<tr>
@@ -343,23 +342,7 @@
 						<th>To</th>
 						<th>Repeater 1</th>
 						<th>Repeater 2</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-		</div>
-		<div class="pure-u-1">
-			<h3>Network Activity</h3>
-			<table id="network" class="pure-table pure-table-striped">
-				<thead>
-					<tr>
-						<th>Local Time</th>
-						<th>Source</th>
-						<th>From</th>
-						<th>To</th>
-						<th>Repeater 1</th>
-						<th>Repeater 2</th>
+						<th>Activity Source</th>
 					</tr>
 				</thead>
 				<tbody>
