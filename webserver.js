@@ -62,7 +62,7 @@ function trimBetween(str, before, after) {
 function orderDS(a, b) {
 	var ax = Date.parse(a.datestamp);
 	var bx = Date.parse(b.datestamp);
-	var res = bx - ax;
+	var res = ax - bx;
 	return res;
 }
 

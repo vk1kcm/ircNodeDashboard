@@ -298,9 +298,9 @@
 				+ actloc + "</td></tr>";
 
 		if (++rr > 15) {
-			$("#repeater tbody tr:last").remove();
+			$("#repeater tbody tr:first").remove();
 		}
-		$("#repeater tbody").prepend(newrec);
+		$("#repeater tbody").append(newrec);
 
 		//    socket.emit('my other event', { my: data });
 	});
