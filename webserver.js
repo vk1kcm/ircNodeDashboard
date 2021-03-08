@@ -305,7 +305,6 @@ io
 							addLL(lineobj);
 							socket.emit('locallinks', lineobj);
 						}
-						addLL(lineobj);
 						socket.emit('header', lineobj);
 					});
 
