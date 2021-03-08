@@ -2,15 +2,19 @@ var express = require('express'), Tail = require('tail').Tail, fs = require('fs'
 var app = express();
 var rfact = new Array(10);
 var linkact = new Array(10);
+var llact = new Array(10);
 var linkptr = 0;
+var llptr = 0;
 var rfptr = 0;
 var currentNet = {};
 var currentRF = {};
+var currentll = {};
 var starNets = [];
 var stats = {};
 var dupes = 0;
 var config = {};
 var links = [];
+var locallinks = [];
 var statseconds = 10 * 1000; // Set number of seconds between updating CPU
 								// stats times 1000;
 
@@ -92,6 +96,18 @@ function addRF(rec) {
 	}
 }
 
+function addLL(rec) {
+	var c = JSON.stringify(currentll);
+	var r = JSON.stringify(rec);
+	if (c === r) {
+		dupes++;
+	} else {
+		llptr %= 10;
+		llact[llptr] = rec;
+		llptr++;
+		currentll = rec;
+	}
+}
 function parseSN(line) {
 	var rest = line.substr(21);
 	var rec = {};
@@ -269,6 +285,11 @@ io
 							socket.emit('header', act);
 						}
 					});
+					llact.sort(orderDS).forEach(function(act) {
+						if (act !== null) {
+							socket.emit('locallinks', act);
+						}
+					});
 					rptlog.on('line', function(line) {
 						var lineobj = parseLogLine(line);
 //						if (lineobj.source === 'Repeater') {
@@ -276,6 +297,15 @@ io
 //						} else {
 //							addNet(lineobj);
 //						}
+						if (lineobj.urcall.match('U')) {
+							addLL(lineobj);
+							socket.emit('locallinks', lineobj);
+						}
+						if (lineobj.urcall.match('.......L')) {
+							addLL(lineobj);
+							socket.emit('locallinks', lineobj);
+						}
+						addLL(lineobj);
 						socket.emit('header', lineobj);
 					});
 

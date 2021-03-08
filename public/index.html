@@ -19,6 +19,7 @@
 	var socket = io.connect(location.origin);
 	var lr = 0;
 	var rr = 0;
+	var ll = 0;
 	function gmap(lat, long) {
 		return 'http://maps.google.com/maps?q=' + lat + ',' + long;
 	}
@@ -304,6 +305,30 @@
 
 		//    socket.emit('my other event', { my: data });
 	});
+
+	socket.on('locallinks', function(data) {
+		console.log("Incoming header: \n" + JSON.stringify(data) + "\n\n");
+		if (data.source === "Repeater") {
+			var actloc = "RF";
+		} else {
+			var actloc = "Network";
+		}
+
+		var mydate = new Date(data.date + "T" + data.time);
+		var ldate = myDate(data.date, data.time);
+		var newrec = "<tr><td>" + ldate + "</td><td>" + data.source
+				+ "</td><td>" + data.mycall + "/" + data.comment1 + "</td><td>"
+				+ data.urcall + "</td><td>" + data.rpt1 + "</td><td>"
+				+ data.rpt2 + "</td><td>"
+				+ actloc + "</td></tr>";
+
+		if (++ll > 15) {
+			$("#locallinks tbody tr:first").remove();
+		}
+		$("#locallinks tbody").append(newrec);
+
+		//    socket.emit('my other event', { my: data });
+	});
 </script>
 </head>
 <body style="padding: 1 em;">
@@ -334,6 +359,24 @@
 		<div class="pure-u-1">
 			<h3>Activity</h3>
 			<table id="repeater" class="pure-table pure-table-striped">
+				<thead>
+					<tr>
+						<th>Local Time</th>
+						<th>Source</th>
+						<th>From</th>
+						<th>To</th>
+						<th>Repeater 1</th>
+						<th>Repeater 2</th>
+						<th>Activity Source</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<div class="pure-u-1">
+			<h3>Local Link Activation</h3>
+			<table id="locallinks" class="pure-table pure-table-striped">
 				<thead>
 					<tr>
 						<th>Local Time</th>
