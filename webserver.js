@@ -297,13 +297,15 @@ io
 //						} else {
 //							addNet(lineobj);
 //						}
-						if (lineobj.urcall.match('U')) {
-							addLL(lineobj);
-							socket.emit('locallinks', lineobj);
-						}
-						if (lineobj.urcall.match('.......L')) {
-							addLL(lineobj);
-							socket.emit('locallinks', lineobj);
+						if (lineobj.source === 'Repeater') {
+							if (lineobj.urcall.match('U')) {
+								addLL(lineobj);
+								socket.emit('locallinks', lineobj);
+							}
+							if (lineobj.urcall.match('.......L')) {
+								addLL(lineobj);
+								socket.emit('locallinks', lineobj);
+							}
 						}
 						socket.emit('header', lineobj);
 					});
